@@ -1,12 +1,20 @@
 require 'octokit'
 
 class Webhooks::WebhooksController < ApplicationController
+  # repo_name => review_group_slug
+  GROUPS = {
+    'random-pr-reviewer-from-group' => 'test'
+  }.freeze
+
   def pull_request
     data = JSON.parse(params["payload"])
 
     return unless data["action"] == "review_requested"
 
-    review_team = data["pull_request"]["requested_teams"].find { |team| team["slug"] == "test" }
+    repo_name = data["pull_request"]["base"]["repo"]["name"]
+    team_slug = GROUPS[repo_name]
+
+    review_team = data["pull_request"]["requested_teams"].find { |team| team["slug"] == team_slug }
 
     return unless review_team.present?
 
