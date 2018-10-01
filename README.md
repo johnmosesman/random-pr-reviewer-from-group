@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The purpose of this repo is to allow for random review requesting based on a team and its members. When a team is tagged for review, this repo will randomly select one person from the team and tag them for review.
 
-Things you may want to cover:
+Things needed to make this work:
 
-* Ruby version
+1) A webhook on the repo pointing to this app (`/webhooks/pull_request`)
+2) The team you want to tag with Read access to the repo
+3) An `ACCESS_TOKEN` ENV with the following scopes: admin on the repo (`public_repo` or `repo`) and `admin:org read:org` (to get team member info)
 
-* System dependencies
+# Local testing
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+You can use this repo for local testing and the `test` group to test with. I use [ngrok](https://ngrok.com/) locally to point the webhook to my local.
